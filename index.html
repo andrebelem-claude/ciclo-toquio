@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<title>Ciclo Tóquio 2027</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F6F7F4; --surface:#FFFFFF; --ink:#1B2430; --ink2:#4A5563; --muted:#7A8390;
+  --line:#D8DDD6; --line2:#E9ECE7; --accent:#0E6F7C; --accent-soft:#E2F0F1; --attn:#B4601F; --attn-soft:#F7E9DC;
+  --good:#2E7D4F; --mark:#0E6F7C; --grid:#E3E7E1;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#121619; --surface:#1A1F24; --ink:#E7EAE4; --ink2:#B9C0BA; --muted:#8A929B;
+    --line:#2E353B; --line2:#242A30; --accent:#5DBFCC; --accent-soft:#12333A; --attn:#E0925A; --attn-soft:#3A2A1C;
+    --good:#6CC08B; --mark:#5DBFCC; --grid:#262C32;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#121619; --surface:#1A1F24; --ink:#E7EAE4; --ink2:#B9C0BA; --muted:#8A929B;
+  --line:#2E353B; --line2:#242A30; --accent:#5DBFCC; --accent-soft:#12333A; --attn:#E0925A; --attn-soft:#3A2A1C;
+  --good:#6CC08B; --mark:#5DBFCC; --grid:#262C32;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.55;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding-block:28px 64px;padding-inline:20px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.12}
+h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(22px,3.2vw,28px);font-weight:600;margin-bottom:6px}
+h3{font-size:17px;font-weight:600;margin-bottom:6px}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.lede{font-size:17px;color:var(--ink2);max-width:66ch;margin-top:12px}
+header{padding-bottom:22px;border-bottom:2px solid var(--ink);margin-bottom:34px}
+.roles{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-size:13.5px;color:var(--ink2)}
+.roles b{color:var(--ink);font-weight:600}
+section{margin-bottom:44px}
+.sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:16px}
+.sec-head .n{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.sub{color:var(--ink2);max-width:70ch}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:720px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.tile .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tile .v{font-family:var(--display);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.05}
+.tile .v small{font-size:15px;font-weight:500;color:var(--ink2);margin-left:4px}
+.tile .d{font-size:13px;color:var(--ink2)}
+.tile .d b{color:var(--good);font-weight:600}
+.tile .d .flat{color:var(--attn);font-weight:600}
+.summary{display:grid;gap:12px}
+.summary .item{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.summary .item .idx{font-family:var(--mono);font-size:12px;color:var(--accent);padding-top:5px}
+.summary .item p{max-width:76ch}
+.summary .item p b{font-weight:600}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+th,td{padding:9px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line2)}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--surface);position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 7px;border-radius:3px;border:1px solid var(--line);color:var(--ink2);white-space:nowrap}
+.pill.hi{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.pill.att{border-color:var(--attn);color:var(--attn);background:var(--attn-soft)}
+.pill.ok{border-color:var(--good);color:var(--good)}
+.note{border-left:3px solid var(--accent);padding:10px 14px;background:var(--accent-soft);border-radius:0 6px 6px 0;color:var(--ink);font-size:14.5px}
+.note.att{border-left-color:var(--attn);background:var(--attn-soft)}
+.note b{font-weight:600}
+ul{margin:0;padding-left:20px}
+li{margin-bottom:6px}
+li b{font-weight:600}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px}
+.fig .cap{font-size:13px;color:var(--ink2);margin-top:8px;max-width:80ch}
+.fig h3{margin-bottom:2px}
+.fig .src{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+svg text{font-family:var(--mono);font-size:11px;fill:var(--ink2)}
+svg .lbl{fill:var(--ink);font-weight:500}
+svg .grid line{stroke:var(--grid);stroke-width:1}
+svg .axis{stroke:var(--line);stroke-width:1}
+svg .bar{fill:var(--mark)}
+svg .bar.base{fill:var(--line)}
+svg .dot{fill:var(--mark);stroke:var(--surface);stroke-width:2}
+svg .dot.att{fill:var(--attn)}
+svg .dot.ink{fill:var(--ink)}
+svg .tgt{stroke:var(--attn);stroke-width:2;stroke-dasharray:4 3}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:12px;padding:6px 8px;border-radius:4px;white-space:nowrap;transform:translate(-50%,-120%);opacity:0;transition:opacity .12s}
+.figwrap{position:relative}
+.q{display:grid;gap:10px}
+.q .item{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:grid;grid-template-columns:28px 1fr;gap:10px}
+.q .item .idx{font-family:var(--mono);font-size:12px;color:var(--accent);padding-top:3px}
+.q .item b{font-weight:600}
+.q .item p{font-size:14.5px}
+footer{border-top:1px solid var(--line);padding-top:14px;font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+a{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.tip{transition:none}}
+</style>
+<style>html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Saúde OS · resumo para o Gabriel · 26/09/2026</div>
+  <h1>Ciclo Tóquio 2027: onde o André está, o que a literatura diz, o que o sistema entrega</h1>
+  <p class="lede">Maratona de Tóquio, 07/03/2027, 23 semanas à frente. Objetivo declarado pelo André: chegar perto do ritmo de 3h30 (4:58/km). Este resumo junta a evolução medida (laboratório e campo), a base científica que você usa, e as perguntas que só você responde.</p>
+  <div class="roles"><span><b>Gabriel</b> decide carga, calendário e prescrição</span><span><b>LPH / cardiologia</b> decidem clínica e zonas</span><span><b>André</b> decide objetivo e informa o que sensor não mede</span><span><b>Saúde OS</b> coleta, compara literal, mede evolução e expõe déficit. Não prescreve.</span></div>
+</header>
+
+<section>
+  <div class="sec-head"><span class="n">01</span><h2>Em uma página</h2></div>
+  <div class="summary">
+    <div class="item"><span class="idx">1</span><p><b>O motor aeróbio subiu de verdade.</b> Entre maio e agosto o VO₂ pico foi de 41,2 para 43,8 mL/kg/min e o LV1 andou de 9,0 para 10,1 km/h. No campo, a eficiência (metros por batimento) subiu 11% sobre a base de maio–junho e o custo cardíaco caiu 8%. Meia de 16/08 em 2:02:59 com FC média 168.</p></div>
+    <div class="item"><span class="idx">2</span><p><b>O LV2 é o que não anda.</b> 12,2 km/h em maio, 12,3 em agosto (4:53/km a 163 bpm). O ritmo de 3h30 é 4:58/km. Hoje esse ritmo é, na prática, o limiar. Mover o LV2 continua sendo o objetivo número 1 do ciclo, como você definiu em 22/08.</p></div>
+    <div class="item"><span class="idx">3</span><p><b>O plano bate com a literatura que você usa.</b> 80–85% em baixa intensidade, piramidal, limiar cedo, ritmo M tarde, longão até 30–32 km, taper 2–3 semanas, força 2×/semana: tudo sustentado pelos 10 artigos. O que nenhum deles cobre: deload, dose de força, progressão do longão e hipertensão no esforço.</p></div>
+    <div class="item"><span class="idx">4</span><p><b>Setembro mostrou dois problemas de execução, não de motor.</b> Três sessões de qualidade acima da faixa na mesma semana (5×4' a 4:37 em vez de 4:55–5:05; tempo a 5:20 em vez de 5:40; longão de 20 km a 5:44 em vez de 5:50–6:10). E consistência: a semana de bordo (S4) entregou 38 km em pedaços, a Força B caiu duas vezes, e a semana atual tem uma corrida até sexta.</p></div>
+    <div class="item"><span class="idx">5</span><p><b>O que decide o objetivo são os marcadores, não a projeção.</b> 10 km em outubro/novembro e a meia de janeiro travam a meta. As referências externas hoje dão de 4:13 (previsor do Garmin) a 4:48 (regra empírica meia × 2 × 1,17). O sistema vai posicionar cada marcador contra a literatura; a decisão de manter, ampliar ou reduzir é sua.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="n">02</span><h2>Onde o André está</h2></div>
+  <p class="sub">Laboratório (TCPE no LPH, 01/05 e 10/08/2026) e campo (Garmin, só o trecho de trabalho das corridas estáveis de rua, janelas de 28 dias).</p>
+  <div class="grid g4" style="margin-top:14px">
+    <div class="tile"><span class="k">VO₂ pico</span><span class="v">43,8<small>mL/kg/min</small></span><span class="d">era 41,2 · <b>+6%</b> · 117% do previsto</span></div>
+    <div class="tile"><span class="k">LV1</span><span class="v">10,1<small>km/h</small></span><span class="d">151 bpm · era 9,0 km/h a 140 · <b>+1,1 km/h</b></span></div>
+    <div class="tile"><span class="k">LV2</span><span class="v">12,3<small>km/h</small></span><span class="d">163 bpm · era 12,2 · <span class="flat">parado</span> · 4:53/km</span></div>
+    <div class="tile"><span class="k">Meia 16/08</span><span class="v">2:02:59</span><span class="d">5:48/km a 168 bpm · FC máx 180 · VDOT 35</span></div>
+  </div>
+  <div class="grid g4" style="margin-top:14px">
+    <div class="tile"><span class="k">Eficiência (EF)</span><span class="v">1,131<small>m/min ÷ bpm</small></span><span class="d">base mai–jun 1,015 · <b>+11,4%</b></span></div>
+    <div class="tile"><span class="k">Custo cardíaco</span><span class="v">906<small>bpm/km</small></span><span class="d">base 984 · <b>−7,9%</b></span></div>
+    <div class="tile"><span class="k">Pace a 145 bpm</span><span class="v">6:23<small>/km</small></span><span class="d">julho 6:33 · regressão FC × velocidade (Vesterinen)</span></div>
+    <div class="tile"><span class="k">Corpo</span><span class="v">79,0<small>kg</small></span><span class="d">18% G · MME 37,1 kg (<span class="flat">−1,4 kg</span> abr→ago)</span></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="fig figwrap">
+      <h3>Eficiência por janela de duas semanas</h3>
+      <div class="src">EF = velocidade (m/min) ÷ FC média · mediana das rodagens estáveis de rua · maio → setembro</div>
+      <svg viewBox="0 0 440 230" width="100%" role="img" aria-label="Eficiência por janela, de 1,058 em maio a 1,174 em setembro">
+        <g class="grid">
+          <line x1="44" y1="30" x2="430" y2="30"/><line x1="44" y1="71.25" x2="430" y2="71.25"/><line x1="44" y1="112.5" x2="430" y2="112.5"/><line x1="44" y1="153.75" x2="430" y2="153.75"/>
+        </g>
+        <text x="40" y="34" text-anchor="end">1,20</text><text x="40" y="75" text-anchor="end">1,15</text><text x="40" y="116" text-anchor="end">1,10</text><text x="40" y="158" text-anchor="end">1,05</text><text x="40" y="199" text-anchor="end">1,00</text>
+        <line class="axis" x1="44" y1="195" x2="430" y2="195"/>
+        <g id="efbars">
+          <rect class="bar base" x="52"  y="147.15" width="30" height="47.85" rx="4" data-l="25/05–07/06 · EF 1,058"/>
+          <rect class="bar base" x="94"  y="193.35" width="30" height="1.65"  rx="1" data-l="08/06–21/06 · EF 1,002"/>
+          <rect class="bar" x="136" y="137.25"   width="30" height="57.75"   rx="4" data-l="22/06–05/07 · EF 1,070"/>
+          <rect class="bar" x="178" y="84.45"  width="30" height="110.55" rx="4" data-l="06/07–19/07 · EF 1,134"/>
+          <rect class="bar" x="220" y="147.15" width="30" height="47.85" rx="4" data-l="20/07–02/08 · EF 1,058"/>
+          <rect class="bar" x="262" y="119.93" width="30" height="75.07" rx="4" data-l="03/08–16/08 · EF 1,091 (semana da meia)"/>
+          <rect class="bar" x="304" y="137.25"   width="30" height="57.75"   rx="4" data-l="17/08–30/08 · EF 1,070"/>
+          <rect class="bar" x="346" y="110.85" width="30" height="84.15" rx="4" data-l="31/08–13/09 · EF 1,102"/>
+          <rect class="bar" x="388" y="51.45"  width="30" height="143.55" rx="4" data-l="14/09–27/09 · EF 1,174 (4 rodagens)"/>
+        </g>
+        <text x="67" y="212" text-anchor="middle">mai</text><text x="151" y="212" text-anchor="middle">jun</text><text x="235" y="212" text-anchor="middle">jul</text><text x="319" y="212" text-anchor="middle">ago</text><text x="403" y="212" text-anchor="middle">set</text>
+        <text class="lbl" x="403" y="46" text-anchor="middle">1,174</text>
+        <text class="lbl" x="67" y="142" text-anchor="middle">1,058</text>
+      </svg>
+      <div class="tip" id="tipEF"></div>
+      <p class="cap">Barras cinza = base (maio–junho). Subir = mais metros por batimento na mesma intensidade. A última janela tem só 4 rodagens estáveis e inclui o longão de 20 km a 5:44: leitura frágil, direção consistente.</p>
+    </div>
+    <div class="fig figwrap">
+      <h3>Onde o ritmo de 3h30 cai na escada do André</h3>
+      <div class="src">pace por km · medido em 2026 · linha tracejada = 4:58/km (3h30)</div>
+      <svg viewBox="0 0 440 230" width="100%" role="img" aria-label="Escada de ritmos do André com a linha de 4:58 por km">
+        <line class="axis" x1="30" y1="200" x2="420" y2="200"/>
+        <g class="grid"><line x1="60" y1="20" x2="60" y2="200"/><line x1="150" y1="20" x2="150" y2="200"/><line x1="240" y1="20" x2="240" y2="200"/><line x1="330" y1="20" x2="330" y2="200"/><line x1="420" y1="20" x2="420" y2="200"/></g>
+        <text x="60" y="216" text-anchor="middle">4:30</text><text x="150" y="216" text-anchor="middle">5:00</text><text x="240" y="216" text-anchor="middle">5:30</text><text x="330" y="216" text-anchor="middle">6:00</text><text x="420" y="216" text-anchor="middle">6:30</text>
+        <line class="tgt" x1="144" y1="18" x2="144" y2="200"/>
+        <text class="lbl" x="144" y="14" text-anchor="middle" style="fill:var(--attn)">3h30 = 4:58</text>
+        <g id="ladder">
+          <circle class="dot att" cx="81" cy="44" r="6" data-l="5×4' de 15/09 · 4:37/km · prescrito 4:55–5:05"/><text x="93" y="48">5×4' (15/09) 4:37 · FC 139/173</text>
+          <circle class="dot ink" cx="129" cy="74" r="6" data-l="LV2 no TCPE 10/08 · 12,3 km/h = 4:53/km a 163 bpm"/><text x="141" y="78">LV2 laboratório 4:53 · 163 bpm</text>
+          <circle class="dot" cx="177" cy="104" r="6" data-l="Melhor 5 km contíguo de 17/09 · 5:09/km a 164 bpm"/><text x="189" y="108">melhor 5 km (17/09) 5:09 · 164</text>
+          <circle class="dot att" cx="210" cy="134" r="6" data-l="Tempo run de 17/09 · 6,4 km a 5:20 · prescrito 5:35–5:45"/><text x="222" y="138">tempo 6 km (17/09) 5:20 · 161</text>
+          <circle class="dot att" cx="282" cy="164" r="6" data-l="Longão de 19/09 · 20 km a 5:44 · prescrito 5:50–6:10"/><text x="294" y="168">longão 20 km 5:44 · 158</text>
+          <circle class="dot ink" cx="294" cy="190" r="6" data-l="Meia de 16/08 · 5:48/km a 168 bpm"/><text x="306" y="194">meia 5:48 · 168</text>
+        </g>
+      </svg>
+      <div class="tip" id="tipLad"></div>
+      <p class="cap">Laranja = sessões executadas acima da faixa prescrita em setembro. O ritmo de 3h30 fica 5 s/km acima do LV2 medido em agosto: hoje é ritmo de limiar, não de maratona.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="n">03</span><h2>A conta do 3h30</h2></div>
+  <div class="grid g2">
+    <div>
+      <p class="sub">O que os números permitem dizer hoje, sem projetar:</p>
+      <ul style="margin-top:8px">
+        <li><b>4:58/km é 98% da velocidade de LV2</b> medida em agosto (12,3 km/h). Maratonistas sustentam ritmo de prova bem abaixo do LV2; o ritmo de maratona fica na parte alta da zona entre os limiares (Haugen 2022, Casado 2022). Para 4:58 virar ritmo M, o LV2 precisa andar; quanto, é medição futura.</li>
+        <li><b>Os marcadores do seu plano já fazem essa conta:</b> 10 km ≤ 48' aponta rota 3h30–3h40; 49–51' rota 3h50; 51–53' sub-4h. A meia de janeiro trava a meta.</li>
+        <li><b>Referências externas de hoje:</b> previsor do Garmin 4:13 (VO₂ estimado + carga; subiu de 4:34 em maio). Regra empírica de recreativos: meia × 2 × 1,17 ≈ 4:48 (Knechtle 2023). Nos 92 planos de Knopp 2024, o grupo com o mesmo volume de pico do André mira 4:30; o grupo que mira 3:52 faz 75 km de pico e 5 corridas.</li>
+        <li><b>Onde o André evoluiu rápido:</b> corrida em FC fixa de 139 foi de 7:29 para 6:45/km entre maio e julho; LV1 +1,1 km/h em 14 semanas. O aeróbio responde. O limiar ainda não foi treinado em volume (liberação de Z4/Z5 veio em 17/08).</li>
+      </ul>
+    </div>
+    <div class="note"><b>Leitura do sistema, para você validar:</b> o objetivo "perto do ritmo de 3h30" hoje é um objetivo de limiar. As três sessões acima da faixa em setembro mostram que o André consegue rodar mais rápido que o prescrito, mas em FC de Z4–Z5 (172–175 de pico). Se a intenção é limiar em volume, o sistema mede tempo acumulado entre 158 e 163 bpm por sessão e por semana, e mostra se o "limiar" está sendo executado como limiar ou como VO₂. A dose é sua.</div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="n">04</span><h2>A base científica: os 10 artigos que você mandou</h2></div>
+  <p class="sub">Todos lidos na íntegra e transformados em fichas (população, achados com números, réguas que o sistema pode medir, o que não transfere pro André, citações). Pesos por relevância ao caso.</p>
+  <div class="tw" style="margin-top:14px">
+  <table>
+    <thead><tr><th>Artigo</th><th>O que é</th><th>Peso</th><th>Sustenta no plano</th></tr></thead>
+    <tbody>
+      <tr><td><b>Knopp 2024</b></td><td>92 planos comerciais de maratona, 12 semanas finais</td><td><span class="pill hi">alto</span></td><td>O plano do André é o grupo "baixo volume": pico 58,6 ± 6,4 km, 4,2 corridas/sem, longão máximo 30,9 ± 4,1 km (consenso 30–32), Z4+Z5 ≈ 5% do km, taper de 3–4 semanas com −31%/sem e −50% na última.</td></tr>
+      <tr><td><b>DeJong Lempke 2026</b></td><td>Boston 2022, n = 917, corredores "trained"</td><td><span class="pill hi">alto</span></td><td>Sessão de qualidade foi a variável de maior efeito (−16 min por sessão/sem). Cada corrida a mais/sem valeu ~3,6 min. Força e cross-training só contaram nos 4 meses finais. Experiência prévia não contou.</td></tr>
+      <tr><td><b>Feely 2023</b></td><td>510 mil maratonas no Strava: custo de parar ≥ 7 dias</td><td><span class="pill hi">alto</span></td><td>Parar 7–13 dias custou +4,25% no tempo. Entre 3 e 7 semanas antes da prova custa mais (~10% se 21–27 dias). É o artigo da rotina de bordo: 17/01–14/02/2027 é a janela crítica.</td></tr>
+      <tr><td><b>Haugen 2022</b></td><td>Revisão: como a elite mundial organiza o treino</td><td><span class="pill">estrutura</span></td><td>80% baixa intensidade, piramidal, maratonista centrado no longão, VO₂ cedo e ritmo M tarde, força 2×/sem na base, taper 2–3 sem com intensidade mantida, progressão +5–15 km/sem nas 8–12 semanas iniciais.</td></tr>
+      <tr><td><b>Casado 2022</b></td><td>Revisão sistemática, 10 estudos, highly trained/elite</td><td><span class="pill">estrutura</span></td><td>76–87% em z1 em todos os estudos; 9 de 10 piramidal com z2 "em ou logo abaixo do LV2"; ≥ 1 sessão de limiar + 1 de VO₂ por semana; dia duro / dia fácil.</td></tr>
+      <tr><td><b>Knechtle 2023 / 2024</b></td><td>NURMI: recreativos de 10 km, meia e maratona</td><td><span class="pill">médio</span></td><td>Rotina de treino explica mais que anos de estrada. Maratonista recreativo: 4 sessões/sem, 43 → 56 km/sem da base ao pico, taper −16% em km com sessões mantidas.</td></tr>
+      <tr><td><b>Tanous 2022</b></td><td>NURMI, dados masculinos por fase</td><td><span class="pill">baixo</span></td><td>Homem recreativo: 34 km na base, 46 no específico, 3–4 sessões/sem; 12% treinam com profissional.</td></tr>
+      <tr><td><b>Cupka 2023</b></td><td>Baixa disponibilidade energética em homens de endurance</td><td><span class="pill att">corpo</span></td><td>Perder peso em bloco intensificado custou regeneração e performance. Antes de chamar de excesso de carga, descartar déficit energético. A meta 73 kg / 8% exige −8,4 kg de gordura e +2,4 kg de massa magra ao mesmo tempo.</td></tr>
+      <tr><td><b>Franklin 2022</b></td><td>Consenso de cardiologia preventiva</td><td><span class="pill att">cardio</span></td><td>Aquecimento ≥ 10 min antes de trecho intenso (ectopia sem aquecimento em até 70% de homens saudáveis), desaquecimento 5–8 min, FC real de teste e RPE em vez de 220 − idade. Define o que o sistema registra pro cardiologista.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="note"><b>O que a base sustenta no seu plano:</b> 80–85% em baixa intensidade · piramidal · limiar desde cedo, protagonista em Base II · VO₂ em doses pequenas · ritmo M tarde · 4 corridas/sem · 34 → 58 km · longão até 30–32 km · progressão conservadora · taper 2–3 sem · força 2×/sem · consistência como indicador central · checkpoints de 10 km e meia.</div>
+    <div class="note att"><b>O que nenhum dos 10 cobre:</b> deloads (frequência e magnitude) · dose de força (séries, carga) · progressão do longão semana a semana · hipertensão e exercício (Franklin remete à AHA 2020) · zonas por FC (toda a literatura de elite mede por velocidade nos limiares; o sistema mede por FC do LPH). Se você usa outra referência para isso, ela entra na base.</div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="n">05</span><h2>Como a base entra no treino do André</h2></div>
+  <p class="sub">A literatura posiciona; ela não prescreve. O sistema compara o executado com o seu plano, componente a componente, e agora também posiciona cada número contra a referência do artigo, sempre dizendo que é população, não meta.</p>
+  <div class="grid g3" style="margin-top:14px">
+    <div class="tile"><span class="k">Toda semana você recebe</span><span class="d" style="font-size:14px;line-height:1.5">Relatório semanal: aderência literal por sessão (aquecimento, séries, recuperação, desaquecimento), distribuição de intensidade contra o alvo do mesociclo, evolução do motor em 28 dias (EF, custo cardíaco, pace a 145 bpm), recuperação da Whoop cruzada com o treino, déficit com motivo registrado pelo André.</span></div>
+    <div class="tile"><span class="k">Réguas novas (a implementar)</span><span class="d" style="font-size:14px;line-height:1.5">Distribuição em 3 zonas por limiar (≤ LV1 · LV1–LV2 · ≥ LV2) com rótulo piramidal / polarizado / limiar por bloco de 4 semanas · detector de interrupção ≥ 7 dias com a janela até a prova · sessões de qualidade por semana e longão como fração do volume · flag de aquecimento e desaquecimento em sessão intensa, pro cardiologista.</span></div>
+    <div class="tile"><span class="k">O que continua seu</span><span class="d" style="font-size:14px;line-height:1.5">Carga, calendário, faixas, quando o limiar vira protagonista, quantas corridas por semana, se a força se mantém na fase específica, como reagir a sessão acima da faixa. O sistema aponta "o Gabriel pode querer olhar" e para aí.</span></div>
+  </div>
+  <div class="note" style="margin-top:14px"><b>Regra de execução que já vale (Campo, 22/08):</b> FC é o árbitro, o pace cede; "última rep = primeira"; degradou, corta rep. FC máxima de toda sessão intensa vai para o registro do cardiologista. Zonas oficiais são só as do LPH (Z1 &lt; 139 · Z2 139–151 · Z3 152–162 · Z4 163–168 · Z5 ≥ 169).</div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="n">06</span><h2>As seis semanas do ciclo, medidas</h2></div>
+  <p class="sub">Volume executado (Garmin + Strava do celular + relato do André quando sem relógio) contra o planejado. Distribuição E/S/M/T/I pelas faixas de pace do seu plano, só trecho de trabalho.</p>
+  <div class="tw" style="margin-top:14px">
+  <table>
+    <thead><tr><th>Semana</th><th class="num">Plano km</th><th class="num">Feito km</th><th class="num">Corridas</th><th>Distribuição E/S/M/T/I</th><th>O que aconteceu</th></tr></thead>
+    <tbody>
+      <tr><td>S1 · 18–23/08</td><td class="num">25–28</td><td class="num">26,0</td><td class="num">4</td><td class="num">46/46/8/0/0</td><td>Pós-meia. Rodagens saíram mais fortes que "easy".</td></tr>
+      <tr><td>S2 · 24–30/08</td><td class="num">30–32</td><td class="num">29,7</td><td class="num">4</td><td class="num">56/44/0/0/0</td><td>Dentro do volume; tiros de 1' a 4:50–5:05 feitos.</td></tr>
+      <tr><td>S3 · 31/08–06/09</td><td class="num">34</td><td class="num">42,9</td><td class="num">6</td><td class="num">79/7/0/14/0</td><td>Acima do volume. 2×3 km a 5:31 (FC 167, pico 179). 16 km de longão.</td></tr>
+      <tr><td>S4 · 07–13/09 <span class="pill att">bordo</span></td><td class="num">37</td><td class="num">38,3</td><td class="num">3 + 3 relato</td><td class="num">100/0/0/0/0*</td><td>Garmin ficou em Santarém. 8×2' a 4:39 (presc. 4:50), viagem na quinta, fracionado remanejado pra sexta à noite (3×2 km a 5:27, no alvo), longão 12 de 18 km na esteira. Força C não feita. *Distribuição só do que foi medido.</td></tr>
+      <tr><td>S5 · 14–20/09</td><td class="num">40</td><td class="num">46,3</td><td class="num">4 + 3 relato</td><td class="num">23/0/59/19/0</td><td>6 de 6 corridas. <b>Três sessões acima da faixa:</b> 5×4' a 4:37 (presc. 4:55–5:05, FC máx 173) · tempo 6 km a 5:20 (presc. 5:40, FC 161/172) · longão 20 km a 5:44 (presc. 5:50–6:10, FC 158/175). Força B não feita sexta e domingo (falta de tempo).</td></tr>
+      <tr><td>S5r · 21–27/09 <span class="pill att">em curso</span></td><td class="num">40</td><td class="num">5,0</td><td class="num">1</td><td class="num">100/0/0/0/0</td><td>Repetição da S5 por decisão do André (sem S6). Até sexta: 1 corrida (5 km a 6:34) + Força B. Terça, quarta e quinta não feitas, motivo não registrado.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="note att"><b>Consistência é o risco número 1, e a literatura precifica.</b> Feely 2023: interrupção de 7–13 dias custou +4,25% no tempo médio (≈ 9 min em 3h30); de 21–27 dias entre 3 e 7 semanas da prova, ~10%. O calendário de bordo do André precisa entrar no plano com antecedência, sobretudo para 17/01–14/02/2027.</div>
+    <div class="note"><b>Força:</b> DeJong Lempke 2026 achou efeito de cross-training só nos 4 meses finais. Haugen: 2×/sem na base, 0–1× perto da prova. A Força B caiu 2 de 2 vezes na S5 e a MME já perdeu 1,4 kg entre abril e agosto. O sistema conta; a dose e a prioridade são suas.</div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="n">07</span><h2>O que só você responde</h2></div>
+  <div class="q">
+    <div class="item"><span class="idx">1</span><p><b>S6 e o deload.</b> O plano acaba em 27/09. A tabela do mesociclo previa S6 = deload (32–34 km, fartlek 8×1', longo 14). O André repetiu a S5 por falta de S6. Vale a repetição ou entra o deload?</p></div>
+    <div class="item"><span class="idx">2</span><p><b>Longão da S5: 20 km a 6:00 ou a 6:50?</b> O PDF diz 6:00; a S4 era 18 km a 6:50 e a tabela do mesociclo dizia S5 = 18 km. O André correu a 5:44 com FC 158/175. Está transcrito como 5:50–6:10 e marcado "confirmar".</p></div>
+    <div class="item"><span class="idx">3</span><p><b>Três sessões de qualidade acima da faixa na mesma semana.</b> Regra "FC é o árbitro" foi cumprida? Os picos foram 172–175. Quer que o sistema sinalize "acima da faixa" como desvio ou como "além do prescrito"?</p></div>
+    <div class="item"><span class="idx">4</span><p><b>Quatro ou cinco corridas por semana.</b> Boston: cada corrida a mais/sem valeu ~3,6 min (associação, não causa). Os planos que miram 3:52 fazem 5. O seu plano fixa 4 e usa o 5º dia só pra redistribuir. Mantém?</p></div>
+    <div class="item"><span class="idx">5</span><p><b>Zona do limiar por FC.</b> A literatura mede z2 por velocidade "em ou logo abaixo do LV2". O sistema mede por FC (152–162 é Z3 do LPH). Quer que o relatório mostre o tempo acumulado em 158–163 bpm por sessão de limiar?</p></div>
+    <div class="item"><span class="idx">6</span><p><b>Quais desses artigos pesam mais na sua construção, e o que falta?</b> Deload, dose de força e progressão do longão não têm referência na pasta. Se você usa outra, ela entra na base e vira régua.</p></div>
+    <div class="item"><span class="idx">7</span><p><b>Meta de peso durante o ciclo.</b> 73 kg / 8% até março coincide com a subida de 40 para 58 km. Cupka 2023 mostra custo de performance em déficit durante bloco intenso. A nutrição está sendo planejada pelo calendário de treino; o ritmo de perda é decisão do André com você e a nutricionista.</p></div>
+  </div>
+</section>
+
+<footer>Saúde OS · dados: TCPE LPH 01/05 e 10/08/2026 · Garmin/Strava até 25/09/2026 · Whoop · plano.csv (AB – Meso Tóquio I) · base científica em docs/11 · fichas em docs/referencias. Referências populacionais não são metas. Decisões clínicas são do LPH e do cardiologista.</footer>
+</div>
+
+<script>
+(function(){
+  function wire(groupId, tipId){
+    var g=document.getElementById(groupId), tip=document.getElementById(tipId); if(!g||!tip) return;
+    var wrap=tip.parentElement;
+    g.querySelectorAll('[data-l]').forEach(function(el){
+      el.addEventListener('mousemove',function(e){
+        var r=wrap.getBoundingClientRect();
+        tip.textContent=el.getAttribute('data-l');
+        tip.style.left=(e.clientX-r.left)+'px'; tip.style.top=(e.clientY-r.top)+'px'; tip.style.opacity='1';
+      });
+      el.addEventListener('mouseleave',function(){tip.style.opacity='0';});
+    });
+  }
+  wire('efbars','tipEF'); wire('ladder','tipLad');
+})();
+</script>
+
+</body>
+</html>
