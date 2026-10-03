@@ -1,0 +1,14 @@
+{
+ "semana": "S99",
+ "periodo": "2099-01-05 a 2099-01-11",
+ "por": "TESTE do sistema",
+ "comentario": "teste do token novo em 03/10 - apagar",
+ "alterado": false,
+ "sessoes": [
+  {
+   "dia": "SEG",
+   "sessao": "off"
+  }
+ ],
+ "aprovado_em": "2026-10-03T17:56:31.663Z"
+}
